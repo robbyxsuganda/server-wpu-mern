@@ -1,7 +1,8 @@
-import { Request, Response } from "express";
+import { Response } from "express";
+import response from "../utils/response";
 
 export default {
-  dummy(req: Request, res: Response) {
-    res.status(200).json({ message: "Hello from dummy controller", data: "Ok!" });
+  dummy(res: Response) {
+    response.success(res, "Test", "Masukk");
   },
 };

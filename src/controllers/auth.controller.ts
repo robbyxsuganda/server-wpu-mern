@@ -5,6 +5,7 @@ import UserModel from "../models/user.model";
 import { encrypt } from "../utils/encryption";
 import { generateToken } from "../utils/jwt";
 import { IReqUser } from "../utils/interfaces";
+import response from "../utils/response";
 
 type TRegister = {
   fullName: string;
@@ -77,10 +78,9 @@ export default {
         password,
       });
 
-      res.status(201).json({ message: "Success Registration", data: result });
+      response.success(res, result, "Registration Success");
     } catch (error) {
-      const err = error as unknown as Error;
-      res.status(400).json({ message: err.message, data: null });
+      response.error(res, error, "Registration Failed");
     }
   },
 
@@ -106,14 +106,14 @@ export default {
       // console.log(userByIdentifier, "<<<<<<<<ini userByIdentifier");
 
       if (!userByIdentifier) {
-        return res.status(403).json({ message: "User not Found", data: null });
+        return response.unauthoried(res, "User Not Found");
       }
 
       const validatePassword: boolean =
         encrypt(password) === userByIdentifier.password;
 
       if (!validatePassword) {
-        return res.status(403).json({ message: "User Not Found", data: null });
+        return response.unauthoried(res, "User Not Found");
       }
 
       const token = generateToken({
@@ -121,10 +121,9 @@ export default {
         role: userByIdentifier.role,
       });
 
-      res.status(200).json({ message: "Success Login", data: token });
+      response.success(res, token, "Login Success");
     } catch (error) {
-      const err = error as unknown as Error;
-      res.status(400).json({ message: err.message, data: null });
+      response.error(res, error, "Login Failed");
     }
   },
 
@@ -140,10 +139,9 @@ export default {
       const user = req.user;
       const result = await UserModel.findById(user?.id);
 
-      res.status(200).json({ message: "Success Get Profile", data: result });
+      response.success(res, result, "Success Get Profile");
     } catch (error) {
-      const err = error as unknown as Error;
-      res.status(400).json({ message: err.message, data: null });
+      response.error(res, error, "Failed Get Profile");
     }
   },
 
@@ -172,13 +170,9 @@ export default {
         }
       );
 
-      res.status(200).json({
-        message: "User Successfully activated",
-        data: user,
-      });
+      response.success(res, user, "User Successfully Activated");
     } catch (error) {
-      const err = error as unknown as Error;
-      res.status(400).json({ message: err.message, data: null });
+      response.error(res, error, "Activation Failed");
     }
   },
 };
