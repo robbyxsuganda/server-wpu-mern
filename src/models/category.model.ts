@@ -32,6 +32,6 @@ const CategorySchema = new Schema<Category>(
   }
 );
 
-const CategoryModel = mongose.model("Categoy", CategorySchema);
+const CategoryModel = mongose.model("Category", CategorySchema);
 
 export default CategoryModel;
