@@ -4,7 +4,7 @@ import * as yup from "yup";
 import UserModel from "../models/user.model";
 import { encrypt } from "../utils/encryption";
 import { generateToken } from "../utils/jwt";
-import { IReqUser } from "../middlewares/auth.middleware";
+import { IReqUser } from "../utils/interfaces";
 
 type TRegister = {
   fullName: string;
@@ -27,11 +27,15 @@ const registerSchema = yup.object({
     .string()
     .required()
     .min(6, "Password must be at least 8 characters")
-    .test("at-least-one-uppercase-letter", "Contains at least one uppercase letter", (value) => {
-      if (!value) return false;
-      const regex = /^(?=.*[A-Z])/;
-      return regex.test(value);
-    })
+    .test(
+      "at-least-one-uppercase-letter",
+      "Contains at least one uppercase letter",
+      (value) => {
+        if (!value) return false;
+        const regex = /^(?=.*[A-Z])/;
+        return regex.test(value);
+      }
+    )
     .test("at-least-one-number", "Contains at least one number", (value) => {
       if (!value) return false;
       const regex = /^(?=.*\d)/;
@@ -54,7 +58,8 @@ export default {
         }
      }
      */
-    const { fullName, username, email, password, confirmPassword } = req.body as unknown as TRegister;
+    const { fullName, username, email, password, confirmPassword } =
+      req.body as unknown as TRegister;
 
     try {
       await registerSchema.validate({
@@ -104,13 +109,17 @@ export default {
         return res.status(403).json({ message: "User not Found", data: null });
       }
 
-      const validatePassword: boolean = encrypt(password) === userByIdentifier.password;
+      const validatePassword: boolean =
+        encrypt(password) === userByIdentifier.password;
 
       if (!validatePassword) {
         return res.status(403).json({ message: "User Not Found", data: null });
       }
 
-      const token = generateToken({ id: userByIdentifier._id, role: userByIdentifier.role });
+      const token = generateToken({
+        id: userByIdentifier._id,
+        role: userByIdentifier.role,
+      });
 
       res.status(200).json({ message: "Success Login", data: token });
     } catch (error) {
