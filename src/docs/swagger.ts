@@ -40,6 +40,30 @@ const doc = {
       ActivationRequest: {
         code: "abcdef",
       },
+      CreateCategoryRequest: {
+        name: "",
+        description: "",
+        icon: "",
+      },
+      CreateEventRequest: {
+        name: "",
+        banner: "fileUrl",
+        category: "category ObjectID",
+        description: "",
+        startDate: "yyyy-mm-dd hh:mm:ss",
+        endDate: "yyyy-mm-dd hh:mm:ss",
+        location: {
+          region: 3273,
+          coordinates: [0, 0],
+          address: "",
+        },
+        isOnline: false,
+        isFeatured: false,
+        isPublish: false,
+      },
+      RemoveMediaRequest: {
+        fileUrl: "",
+      },
     },
   },
 };

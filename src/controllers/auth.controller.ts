@@ -50,15 +50,6 @@ const registerSchema = yup.object({
 
 export default {
   async register(req: Request, res: Response) {
-    /**
-      #swagger.tags = ["Auth"]
-      #swagger.requestBody = {
-        required: true,
-        schema: {
-          $ref: "#/components/schemas/RegisterRequest"
-        }
-     }
-     */
     const { fullName, username, email, password, confirmPassword } =
       req.body as unknown as TRegister;
 
@@ -85,15 +76,6 @@ export default {
   },
 
   async login(req: Request, res: Response) {
-    /**
-      #swagger.tags = ["Auth"]
-      #swagger.requestBody = {
-        required: true,
-        schema: {
-          $ref: "#/components/schemas/LoginRequest"
-        }
-     }
-     */
     const { identifier, password } = req.body as unknown as TLogin;
     // console.log(identifier, password, "<<<<<<<<ini login");
 
@@ -128,12 +110,6 @@ export default {
   },
 
   async me(req: IReqUser, res: Response) {
-    /**
-      #swagger.tags = ["Auth"]
-      #swagger.security = [{
-        "bearerAuth": []
-      }]
-     */
     try {
       // console.log(req, "<<<<<<<<ini req.user");
       const user = req.user;
@@ -146,15 +122,6 @@ export default {
   },
 
   async activation(req: Request, res: Response) {
-    /**
-      #swagger.tags = ["Auth"]
-      #swagger.requestBody = {
-        required: true,
-        schema: {
-          $ref: "#/components/schemas/ActivationRequest"
-        }
-     }
-     */
     try {
       const { code } = req.body as { code: string };
 
@@ -166,7 +133,7 @@ export default {
           isActivate: true,
         },
         {
-          new: true, // return the updated document
+          new: true,
         }
       );
 
