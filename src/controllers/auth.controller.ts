@@ -88,14 +88,14 @@ export default {
       // console.log(userByIdentifier, "<<<<<<<<ini userByIdentifier");
 
       if (!userByIdentifier) {
-        return response.unauthoried(res, "User Not Found");
+        return response.unauthorized(res, "User Not Found");
       }
 
       const validatePassword: boolean =
         encrypt(password) === userByIdentifier.password;
 
       if (!validatePassword) {
-        return response.unauthoried(res, "User Not Found");
+        return response.unauthorized(res, "User Not Found");
       }
 
       const token = generateToken({

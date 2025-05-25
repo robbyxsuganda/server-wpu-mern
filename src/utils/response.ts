@@ -42,13 +42,13 @@ export default {
     }
 
     if ((error as any)?.code) {
-      const _error = error as any;
+      const _err = error as any;
       return res.status(500).json({
         meta: {
           status: 500,
-          message: _error.errorResponse.errmsg,
+          message: _err?.errorResponse?.errmsg || "server error",
         },
-        data: _error,
+        data: _err,
       });
     }
 
@@ -60,7 +60,16 @@ export default {
       data: error,
     });
   },
-  unauthoried(res: Response, message: string = "unauthorized") {
+  notFound(res: Response, message: string = "not found") {
+    res.status(404).json({
+      meta: {
+        status: 404,
+        message,
+      },
+      data: null,
+    });
+  },
+  unauthorized(res: Response, message: string = "unauthorized") {
     res.status(403).json({
       meta: {
         status: 403,
@@ -71,7 +80,7 @@ export default {
   },
   pagination(
     res: Response,
-    data: any,
+    data: any[],
     pagination: Pagination,
     message: string
   ) {
