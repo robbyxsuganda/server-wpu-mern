@@ -50,7 +50,7 @@ export default {
         {
           total: count,
           totalPages: Math.ceil(count / limit),
-          currentPage: page,
+          current: page,
         },
         "Success FindAll Category"
       );
