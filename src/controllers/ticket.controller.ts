@@ -9,9 +9,9 @@ export default {
     try {
       await ticketDAO.validate(req.body);
       const result = await TicketModel.create(req.body);
-      response.success(res, result, "Success to Create Ticket");
+      response.success(res, result, "success create a ticket");
     } catch (error) {
-      response.error(res, error, "Failed to create ticket");
+      response.error(res, error, "failed to create a ticket");
     }
   },
   async findAll(req: IReqUser, res: Response) {
@@ -52,38 +52,58 @@ export default {
         "success find all tickets"
       );
     } catch (error) {
-      response.error(res, error, "Failed to findAll ticket");
+      response.error(res, error, "failed to find all ticket");
     }
   },
   async findOne(req: IReqUser, res: Response) {
     try {
       const { id } = req.params;
+
+      if (!isValidObjectId(id)) {
+        return response.notFound(res, "failed find one a ticket");
+      }
+
       const result = await TicketModel.findById(id);
-      response.success(res, result, "Success findOne ticket");
+
+      if (!result) {
+        return response.notFound(res, "failed find one a ticket");
+      }
+
+      response.success(res, result, "success find one a ticket");
     } catch (error) {
-      response.error(res, error, "Failed to findOne ticket");
+      response.error(res, error, "failed to find one a ticket");
     }
   },
   async update(req: IReqUser, res: Response) {
-    const { id } = req.params;
-    const result = await TicketModel.findByIdAndUpdate(id, req.body, {
-      new: true,
-    });
-    response.success(res, result, "Success update ticket");
     try {
+      const { id } = req.params;
+
+      if (!isValidObjectId(id)) {
+        return response.notFound(res, "failed update a ticket");
+      }
+
+      const result = await TicketModel.findByIdAndUpdate(id, req.body, {
+        new: true,
+      });
+      response.success(res, result, "success update a ticket");
     } catch (error) {
-      response.error(res, error, "Failed to update ticket");
+      response.error(res, error, "failed to update ticket");
     }
   },
   async remove(req: IReqUser, res: Response) {
     try {
       const { id } = req.params;
+
+      if (!isValidObjectId(id)) {
+        return response.notFound(res, "failed remove a ticket");
+      }
+
       const result = await TicketModel.findByIdAndDelete(id, {
         new: true,
       });
-      response.success(res, result, "Success remove ticket");
+      response.success(res, result, "success remove a ticket");
     } catch (error) {
-      response.error(res, error, "Failed to remove ticket");
+      response.error(res, error, "failed to remove ticket");
     }
   },
   async findAllByEvent(req: IReqUser, res: Response) {
@@ -91,14 +111,13 @@ export default {
       const { eventId } = req.params;
 
       if (!isValidObjectId(eventId)) {
-        return response.error(res, null, "Ticket not found");
+        return response.error(res, null, "tickets not found");
       }
 
       const result = await TicketModel.find({ events: eventId }).exec();
-
-      response.success(res, result, "Success findAllByEvent");
+      response.success(res, result, "success find all tickets by an event");
     } catch (error) {
-      response.error(res, error, "Failed to findAllByEvent ticket");
+      response.error(res, error, "failed to find all ticket by event");
     }
   },
 };
