@@ -5,6 +5,8 @@ import { renderMailHtml, SendMail } from "../utils/mail/mail";
 import { CLIENT_HOST, EMAIL_SMTP_USER } from "../utils/env";
 import { ROLES } from "../utils/constant";
 
+export const USER_MODEL_NAME = "User";
+
 export interface User {
   fullName: string;
   username: string;
@@ -101,6 +103,6 @@ userSchema.methods.toJSON = function () {
   return user;
 };
 
-const UserModel = mongoose.model<User>("User", userSchema);
+const UserModel = mongoose.model<User>(USER_MODEL_NAME, userSchema);
 
 export default UserModel;
