@@ -16,43 +16,57 @@ export default {
     }
   },
   async findAll(req: IReqUser, res: Response) {
-    const {
-      limit = 10,
-      page = 1,
-      search,
-    } = req.query as unknown as IPaginationQuery;
     try {
-      const query: FilterQuery<TEvent> = {};
+      const buildQuery = (filter: any) => {
+        let query: FilterQuery<TEvent> = {};
 
-      if (search) {
-        Object.assign(query, {
-          ...query,
-          $text: {
-            $search: search,
-          },
-        });
-      }
+        if (filter.search) query.$text = { $search: filter.search };
+        if (filter.category) query.category = filter.category;
+        if (filter.isOnline) query.isOnline = filter.isOnline;
+        if (filter.isPublish) query.isPublish = filter.isPublish;
+        if (filter.isFeatured) query.isFeatured = filter.isFeatured;
+
+        return query;
+      };
+
+      const {
+        limit = 10,
+        page = 1,
+        search,
+        category,
+        isOnline,
+        isFeatured,
+        isPublish,
+      } = req.query;
+
+      const query = buildQuery({
+        search,
+        category,
+        isPublish,
+        isFeatured,
+        isOnline,
+      });
 
       const result = await EventModel.find(query)
-        .limit(limit)
-        .skip((page - 1) * limit)
+        .limit(+limit)
+        .skip((+page - 1) * +limit)
         .sort({ createdAt: -1 })
+        .lean()
         .exec();
-
       const count = await EventModel.countDocuments(query);
 
       response.pagination(
         res,
         result,
         {
+          current: +page,
           total: count,
-          totalPages: Math.ceil(count / limit),
-          current: page,
+          totalPages: Math.ceil(count / +limit),
         },
-        "Success FindAll Events"
+        "success find all events"
       );
     } catch (error) {
-      response.error(res, error, "Failed FindAll Event");
+      response.error(res, error, "failed find all events");
     }
   },
   async findOne(req: IReqUser, res: Response) {
