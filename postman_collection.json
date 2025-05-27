@@ -1,0 +1,1159 @@
+{
+  "info": {
+    "_postman_id": "a9f12e3b-4c5d-4f67-a8e9-bfc2dc2a3c2c",
+    "name": "WPU MERN API",
+    "description": "API dokumentasi untuk aplikasi WPU MERN",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Register",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"User Test\",\n  \"email\": \"user@example.com\",\n  \"password\": \"password123\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/auth/register",
+              "host": ["{{baseUrl}}"],
+              "path": ["auth", "register"]
+            },
+            "description": "Endpoint untuk mendaftarkan pengguna baru"
+          },
+          "response": []
+        },
+        {
+          "name": "Login",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"user@example.com\",\n  \"password\": \"password123\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/auth/login",
+              "host": ["{{baseUrl}}"],
+              "path": ["auth", "login"]
+            },
+            "description": "Endpoint untuk login pengguna"
+          },
+          "response": []
+        },
+        {
+          "name": "Me",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/auth/me",
+              "host": ["{{baseUrl}}"],
+              "path": ["auth", "me"]
+            },
+            "description": "Endpoint untuk mendapatkan informasi pengguna yang sedang login"
+          },
+          "response": []
+        },
+        {
+          "name": "Activation",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"token\": \"activation_token_here\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/auth/activation",
+              "host": ["{{baseUrl}}"],
+              "path": ["auth", "activation"]
+            },
+            "description": "Endpoint untuk aktivasi akun pengguna"
+          },
+          "response": []
+        },
+        {
+          "name": "Update Profile",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Updated Name\",\n  \"email\": \"updated@example.com\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/auth/update-profile",
+              "host": ["{{baseUrl}}"],
+              "path": ["auth", "update-profile"]
+            },
+            "description": "Endpoint untuk update profil pengguna"
+          },
+          "response": []
+        },
+        {
+          "name": "Update Password",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"oldPassword\": \"password123\",\n  \"newPassword\": \"newPassword123\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/auth/update-password",
+              "host": ["{{baseUrl}}"],
+              "path": ["auth", "update-password"]
+            },
+            "description": "Endpoint untuk update password pengguna"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Orders",
+      "item": [
+        {
+          "name": "Create Order",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"ticketId\": \"ticket_id_here\",\n  \"quantity\": 1\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/orders",
+              "host": ["{{baseUrl}}"],
+              "path": ["orders"]
+            },
+            "description": "Endpoint untuk membuat order baru"
+          },
+          "response": []
+        },
+        {
+          "name": "Get All Orders",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/orders",
+              "host": ["{{baseUrl}}"],
+              "path": ["orders"]
+            },
+            "description": "Endpoint untuk mendapatkan semua order (admin only)"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Order by ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/orders/:orderId",
+              "host": ["{{baseUrl}}"],
+              "path": ["orders", ":orderId"],
+              "variable": [
+                {
+                  "key": "orderId",
+                  "value": "order_id_here"
+                }
+              ]
+            },
+            "description": "Endpoint untuk mendapatkan detail order berdasarkan ID"
+          },
+          "response": []
+        },
+        {
+          "name": "Complete Order",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/orders/:orderId/completed",
+              "host": ["{{baseUrl}}"],
+              "path": ["orders", ":orderId", "completed"],
+              "variable": [
+                {
+                  "key": "orderId",
+                  "value": "order_id_here"
+                }
+              ]
+            },
+            "description": "Endpoint untuk menyelesaikan order"
+          },
+          "response": []
+        },
+        {
+          "name": "Set Order to Pending",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/orders/:orderId/pending",
+              "host": ["{{baseUrl}}"],
+              "path": ["orders", ":orderId", "pending"],
+              "variable": [
+                {
+                  "key": "orderId",
+                  "value": "order_id_here"
+                }
+              ]
+            },
+            "description": "Endpoint untuk mengubah status order menjadi pending (admin only)"
+          },
+          "response": []
+        },
+        {
+          "name": "Cancel Order",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/orders/:orderId/cancelled",
+              "host": ["{{baseUrl}}"],
+              "path": ["orders", ":orderId", "cancelled"],
+              "variable": [
+                {
+                  "key": "orderId",
+                  "value": "order_id_here"
+                }
+              ]
+            },
+            "description": "Endpoint untuk membatalkan order (admin only)"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Order History",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/orders-history",
+              "host": ["{{baseUrl}}"],
+              "path": ["orders-history"]
+            },
+            "description": "Endpoint untuk mendapatkan history order (member only)"
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Order",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/orders/:orderId",
+              "host": ["{{baseUrl}}"],
+              "path": ["orders", ":orderId"],
+              "variable": [
+                {
+                  "key": "orderId",
+                  "value": "order_id_here"
+                }
+              ]
+            },
+            "description": "Endpoint untuk menghapus order (admin only)"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Events",
+      "item": [
+        {
+          "name": "Create Event",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Event Title\",\n  \"description\": \"Event Description\",\n  \"categoryId\": \"category_id_here\",\n  \"isOnline\": false,\n  \"locationId\": \"location_id_here\",\n  \"startDate\": \"2023-07-01T12:00:00.000Z\",\n  \"endDate\": \"2023-07-01T15:00:00.000Z\",\n  \"isPublish\": true,\n  \"isFeatured\": false\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/events",
+              "host": ["{{baseUrl}}"],
+              "path": ["events"]
+            },
+            "description": "Endpoint untuk membuat event baru (admin only)"
+          },
+          "response": []
+        },
+        {
+          "name": "Get All Events",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/events?limit=10&page=1",
+              "host": ["{{baseUrl}}"],
+              "path": ["events"],
+              "query": [
+                {
+                  "key": "limit",
+                  "value": "10"
+                },
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "category",
+                  "value": "",
+                  "disabled": true
+                },
+                {
+                  "key": "isOnline",
+                  "value": "",
+                  "disabled": true
+                },
+                {
+                  "key": "isPublish",
+                  "value": "",
+                  "disabled": true
+                },
+                {
+                  "key": "isFeatured",
+                  "value": "",
+                  "disabled": true
+                }
+              ]
+            },
+            "description": "Endpoint untuk mendapatkan semua event"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Event by ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/events/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["events", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "event_id_here"
+                }
+              ]
+            },
+            "description": "Endpoint untuk mendapatkan detail event berdasarkan ID"
+          },
+          "response": []
+        },
+        {
+          "name": "Update Event",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Updated Event Title\",\n  \"description\": \"Updated Event Description\",\n  \"categoryId\": \"category_id_here\",\n  \"isOnline\": false,\n  \"locationId\": \"location_id_here\",\n  \"startDate\": \"2023-07-01T12:00:00.000Z\",\n  \"endDate\": \"2023-07-01T15:00:00.000Z\",\n  \"isPublish\": true,\n  \"isFeatured\": false\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/events/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["events", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "event_id_here"
+                }
+              ]
+            },
+            "description": "Endpoint untuk mengupdate event (admin only)"
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Event",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/events/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["events", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "event_id_here"
+                }
+              ]
+            },
+            "description": "Endpoint untuk menghapus event (admin only)"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Event by Slug",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/events/:slug/slug",
+              "host": ["{{baseUrl}}"],
+              "path": ["events", ":slug", "slug"],
+              "variable": [
+                {
+                  "key": "slug",
+                  "value": "event-slug-here"
+                }
+              ]
+            },
+            "description": "Endpoint untuk mendapatkan detail event berdasarkan slug"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Category",
+      "item": [
+        {
+          "name": "Create Category",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Category Name\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/category",
+              "host": ["{{baseUrl}}"],
+              "path": ["category"]
+            },
+            "description": "Endpoint untuk membuat category baru (admin only)"
+          },
+          "response": []
+        },
+        {
+          "name": "Get All Categories",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/category",
+              "host": ["{{baseUrl}}"],
+              "path": ["category"]
+            },
+            "description": "Endpoint untuk mendapatkan semua category"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Category by ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/category/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["category", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "category_id_here"
+                }
+              ]
+            },
+            "description": "Endpoint untuk mendapatkan detail category berdasarkan ID"
+          },
+          "response": []
+        },
+        {
+          "name": "Update Category",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Updated Category Name\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/category/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["category", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "category_id_here"
+                }
+              ]
+            },
+            "description": "Endpoint untuk mengupdate category (admin only)"
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Category",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/category/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["category", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "category_id_here"
+                }
+              ]
+            },
+            "description": "Endpoint untuk menghapus category (admin only)"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Tickets",
+      "item": [
+        {
+          "name": "Create Ticket",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"eventId\": \"event_id_here\",\n  \"name\": \"Ticket Name\",\n  \"price\": 100000,\n  \"quantity\": 100,\n  \"description\": \"Ticket Description\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/tickets",
+              "host": ["{{baseUrl}}"],
+              "path": ["tickets"]
+            },
+            "description": "Endpoint untuk membuat ticket baru (admin only)"
+          },
+          "response": []
+        },
+        {
+          "name": "Get All Tickets",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/tickets",
+              "host": ["{{baseUrl}}"],
+              "path": ["tickets"]
+            },
+            "description": "Endpoint untuk mendapatkan semua ticket"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Ticket by ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/tickets/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["tickets", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "ticket_id_here"
+                }
+              ]
+            },
+            "description": "Endpoint untuk mendapatkan detail ticket berdasarkan ID"
+          },
+          "response": []
+        },
+        {
+          "name": "Update Ticket",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"eventId\": \"event_id_here\",\n  \"name\": \"Updated Ticket Name\",\n  \"price\": 150000,\n  \"quantity\": 150,\n  \"description\": \"Updated Ticket Description\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/tickets/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["tickets", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "ticket_id_here"
+                }
+              ]
+            },
+            "description": "Endpoint untuk mengupdate ticket (admin only)"
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Ticket",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/tickets/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["tickets", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "ticket_id_here"
+                }
+              ]
+            },
+            "description": "Endpoint untuk menghapus ticket (admin only)"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Tickets by Event",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/tickets/:eventId/events",
+              "host": ["{{baseUrl}}"],
+              "path": ["tickets", ":eventId", "events"],
+              "variable": [
+                {
+                  "key": "eventId",
+                  "value": "event_id_here"
+                }
+              ]
+            },
+            "description": "Endpoint untuk mendapatkan semua ticket berdasarkan event"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Banners",
+      "item": [
+        {
+          "name": "Create Banner",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Banner Title\",\n  \"image\": \"image_url_here\",\n  \"link\": \"https://example.com\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/banners",
+              "host": ["{{baseUrl}}"],
+              "path": ["banners"]
+            },
+            "description": "Endpoint untuk membuat banner baru (admin only)"
+          },
+          "response": []
+        },
+        {
+          "name": "Get All Banners",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/banners",
+              "host": ["{{baseUrl}}"],
+              "path": ["banners"]
+            },
+            "description": "Endpoint untuk mendapatkan semua banner"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Banner by ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/banners/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["banners", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "banner_id_here"
+                }
+              ]
+            },
+            "description": "Endpoint untuk mendapatkan detail banner berdasarkan ID"
+          },
+          "response": []
+        },
+        {
+          "name": "Update Banner",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Updated Banner Title\",\n  \"image\": \"updated_image_url_here\",\n  \"link\": \"https://updated-example.com\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/banners/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["banners", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "banner_id_here"
+                }
+              ]
+            },
+            "description": "Endpoint untuk mengupdate banner (admin only)"
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Banner",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/banners/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["banners", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "banner_id_here"
+                }
+              ]
+            },
+            "description": "Endpoint untuk menghapus banner (admin only)"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Regions",
+      "item": [
+        {
+          "name": "Get All Provinces",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/regions",
+              "host": ["{{baseUrl}}"],
+              "path": ["regions"]
+            },
+            "description": "Endpoint untuk mendapatkan semua provinsi"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Province by ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/regions/:id/province",
+              "host": ["{{baseUrl}}"],
+              "path": ["regions", ":id", "province"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "province_id_here"
+                }
+              ]
+            },
+            "description": "Endpoint untuk mendapatkan detail provinsi berdasarkan ID"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Regency by ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/regions/:id/regency",
+              "host": ["{{baseUrl}}"],
+              "path": ["regions", ":id", "regency"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "regency_id_here"
+                }
+              ]
+            },
+            "description": "Endpoint untuk mendapatkan detail kabupaten berdasarkan ID"
+          },
+          "response": []
+        },
+        {
+          "name": "Get District by ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/regions/:id/district",
+              "host": ["{{baseUrl}}"],
+              "path": ["regions", ":id", "district"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "district_id_here"
+                }
+              ]
+            },
+            "description": "Endpoint untuk mendapatkan detail kecamatan berdasarkan ID"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Village by ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/regions/:id/village",
+              "host": ["{{baseUrl}}"],
+              "path": ["regions", ":id", "village"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "village_id_here"
+                }
+              ]
+            },
+            "description": "Endpoint untuk mendapatkan detail desa berdasarkan ID"
+          },
+          "response": []
+        },
+        {
+          "name": "Search Region by City",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/regions-search?city=jakarta",
+              "host": ["{{baseUrl}}"],
+              "path": ["regions-search"],
+              "query": [
+                {
+                  "key": "city",
+                  "value": "jakarta"
+                }
+              ]
+            },
+            "description": "Endpoint untuk mencari region berdasarkan nama kota"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Media",
+      "item": [
+        {
+          "name": "Upload Single File",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "file",
+                  "type": "file",
+                  "src": []
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/media/upload-single",
+              "host": ["{{baseUrl}}"],
+              "path": ["media", "upload-single"]
+            },
+            "description": "Endpoint untuk upload single file"
+          },
+          "response": []
+        },
+        {
+          "name": "Upload Multiple Files",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "files",
+                  "type": "file",
+                  "src": []
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/media/upload-multiple",
+              "host": ["{{baseUrl}}"],
+              "path": ["media", "upload-multiple"]
+            },
+            "description": "Endpoint untuk upload multiple files"
+          },
+          "response": []
+        },
+        {
+          "name": "Remove Media",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"public_id\": \"public_id_here\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/media/remove",
+              "host": ["{{baseUrl}}"],
+              "path": ["media", "remove"]
+            },
+            "description": "Endpoint untuk menghapus media"
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{token}}",
+        "type": "string"
+      }
+    ]
+  },
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [""]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "exec": [""]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3000/api"
+    }
+  ]
+}
