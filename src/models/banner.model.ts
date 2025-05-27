@@ -34,5 +34,4 @@ const BannerSchema = new Schema<Banner>(
 ).index({ title: "text" });
 
 const BannerModel = mongoose.model(BANNER_MODEL_NAME, BannerSchema);
-
 export default BannerModel;

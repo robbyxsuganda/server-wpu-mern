@@ -1,4 +1,5 @@
 import { v2 as cloudinary } from "cloudinary";
+
 import {
   CLOUDINARY_CLOUD_NAME,
   CLOUDINARY_API_KEY,
@@ -18,13 +19,12 @@ const toDataURL = (file: Express.Multer.File) => {
 };
 
 const getPublicIdFromFileUrl = (fileUrl: string) => {
-  const fileNameUsingSubString = fileUrl.substring(
+  const fileNameUsingSubstring = fileUrl.substring(
     fileUrl.lastIndexOf("/") + 1
   );
-
-  const publicId = fileNameUsingSubString.substring(
+  const publicId = fileNameUsingSubstring.substring(
     0,
-    fileNameUsingSubString.indexOf(".")
+    fileNameUsingSubstring.lastIndexOf(".")
   );
   return publicId;
 };

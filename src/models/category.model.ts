@@ -1,8 +1,7 @@
-import mongose from "mongoose";
-
+import mongoose from "mongoose";
 import * as Yup from "yup";
 
-const Schema = mongose.Schema;
+const Schema = mongoose.Schema;
 
 export const categoryDTO = Yup.object({
   name: Yup.string().required(),
@@ -32,6 +31,6 @@ const CategorySchema = new Schema<Category>(
   }
 );
 
-const CategoryModel = mongose.model("Category", CategorySchema);
+const CategoryModel = mongoose.model("Category", CategorySchema);
 
 export default CategoryModel;

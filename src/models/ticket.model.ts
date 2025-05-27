@@ -28,14 +28,14 @@ const TicketSchema = new Schema<Ticket>(
       type: Schema.Types.String,
       required: true,
     },
+    description: {
+      type: Schema.Types.String,
+      required: true,
+    },
     events: {
       type: Schema.Types.ObjectId,
       required: true,
       ref: EVENT_MODEL_NAME,
-    },
-    description: {
-      type: Schema.Types.String,
-      required: true,
     },
     quantity: {
       type: Schema.Types.Number,
@@ -48,5 +48,4 @@ const TicketSchema = new Schema<Ticket>(
 ).index({ name: "text" });
 
 const TicketModel = mongoose.model(TICKET_MODEL_NAME, TicketSchema);
-
 export default TicketModel;

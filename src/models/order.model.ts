@@ -3,8 +3,8 @@ import * as Yup from "yup";
 import { EVENT_MODEL_NAME } from "./event.model";
 import { USER_MODEL_NAME } from "./user.model";
 import { TICKET_MODEL_NAME } from "./ticket.model";
-import payment, { TypeResponseMidtrans } from "../utils/payment";
 import { getId } from "../utils/id";
+import payment, { TypeResponseMidtrans } from "../utils/payment";
 
 export const ORDER_MODEL_NAME = "Order";
 
@@ -117,5 +117,4 @@ OrderSchema.pre("save", async function () {
 });
 
 const OrderModel = mongoose.model(ORDER_MODEL_NAME, OrderSchema);
-
 export default OrderModel;
