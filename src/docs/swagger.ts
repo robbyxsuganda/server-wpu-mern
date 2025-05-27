@@ -77,6 +77,11 @@ const doc = {
         description: "Ticket Reguler - Description",
         quantity: 100,
       },
+      CreateOrderRequest: {
+        events: "event object id",
+        ticket: "ticket object id",
+        quantity: 1,
+      },
     },
   },
 };
