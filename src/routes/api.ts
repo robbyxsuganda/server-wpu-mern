@@ -1,5 +1,4 @@
 import express from "express";
-import dummyController from "../controllers/dummy.controller";
 import authController from "../controllers/auth.controller";
 import authMiddleware from "../middlewares/auth.middleware";
 import aclMiddleware from "../middlewares/acl.middleware";
@@ -19,26 +18,26 @@ router.post(
   "/auth/register",
   authController.register
   /*
-    #swagger.tags = ['Auth']
-    #swagger.requestBody = {
-      required: true,
-      schema: {
-        $ref: "#/components/schemas/RegisterRequest"
-      }
+  #swagger.tags = ['Auth']
+  #swagger.requestBody = {
+    required: true,
+    schema: {
+      $ref: "#/components/schemas/RegisterRequest"
     }
+  }
   */
 );
 router.post(
   "/auth/login",
   authController.login
   /*
-    #swagger.tags = ['Auth']
-    #swagger.requestBody = {
-      required: true,
-      schema: {
-        $ref: "#/components/schemas/LoginRequest"
-      }
+  #swagger.tags = ['Auth']
+  #swagger.requestBody = {
+    required: true,
+    schema: {
+      $ref: "#/components/schemas/LoginRequest"
     }
+  }
   */
 );
 router.get(
@@ -46,23 +45,58 @@ router.get(
   authMiddleware,
   authController.me
   /*
-    #swagger.tags = ['Auth']
-    #swagger.security = [{
-      "bearerAuth": {}
-    }]
+  #swagger.tags = ['Auth']
+  #swagger.security = [{
+    "bearerAuth": {}
+  }]
   */
 );
 router.post(
   "/auth/activation",
   authController.activation
   /*
-    #swagger.tags = ['Auth']
-    #swagger.requestBody = {
-      required: true,
-      schema: {
-        $ref: "#/components/schemas/ActivationRequest"
-      }
+  #swagger.tags = ['Auth']
+  #swagger.requestBody = {
+    required: true,
+    schema: {
+      $ref: "#/components/schemas/ActivationRequest"
     }
+  }
+  */
+);
+
+router.put(
+  "/auth/update-profile",
+  [authMiddleware, aclMiddleware([ROLES.MEMBER])],
+  authController.updateProfile
+  /*
+  #swagger.tags = ['Auth']
+  #swagger.security = [{
+    "bearerAuth": {}
+  }]
+  #swagger.requestBody = {
+    required: true,
+    schema: {
+      $ref: "#/components/schemas/UpdateProfileRequest"
+    }
+  }
+  */
+);
+router.put(
+  "/auth/update-password",
+  [authMiddleware, aclMiddleware([ROLES.MEMBER])],
+  authController.updatePassword
+  /*
+  #swagger.tags = ['Auth']
+  #swagger.security = [{
+    "bearerAuth": {}
+  }]
+  #swagger.requestBody = {
+    required: true,
+    schema: {
+      $ref: "#/components/schemas/UpdatePasswordRequest"
+    }
+  }
   */
 );
 
@@ -150,6 +184,7 @@ router.get(
   }]
   */
 );
+
 router.delete(
   "/orders/:orderId",
   [authMiddleware, aclMiddleware([ROLES.ADMIN])],
@@ -298,7 +333,6 @@ router.post(
   #swagger.security = [{
     "bearerAuth": {}
   }]
-
   #swagger.requestBody = {
     required: true,
     schema: {
@@ -311,14 +345,14 @@ router.get(
   "/category",
   categoryController.findAll
   /*
-   #swagger.tags = ['Category']
+  #swagger.tags = ['Category']
   */
 );
 router.get(
   "/category/:id",
   categoryController.findOne
   /*
-   #swagger.tags = ['Category']
+  #swagger.tags = ['Category']
   */
 );
 router.put(
@@ -326,10 +360,16 @@ router.put(
   [authMiddleware, aclMiddleware([ROLES.ADMIN])],
   categoryController.update
   /*
-   #swagger.tags = ['Category']
-    #swagger.security = [{
-      "bearerAuth": {}
-    }]
+  #swagger.tags = ['Category']
+  #swagger.security = [{
+    "bearerAuth": {}
+  }]
+  #swagger.requestBody = {
+    required: true,
+    schema: {
+      $ref: "#/components/schemas/CreateCategoryRequest"
+    }
+  }
   */
 );
 router.delete(
@@ -337,17 +377,10 @@ router.delete(
   [authMiddleware, aclMiddleware([ROLES.ADMIN])],
   categoryController.remove
   /*
-   #swagger.tags = ['Category']
-    #swagger.security = [{
-      "bearerAuth": {}
-    }]
-
-    #swagger.requestBody = {
-      required: true,
-      schema: {
-        $ref: "#/components/schemas/CreateCategoryRequest"
-      }
-    }
+  #swagger.tags = ['Category']
+  #swagger.security = [{
+    "bearerAuth": {}
+  }]
   */
 );
 
@@ -356,56 +389,56 @@ router.post(
   [authMiddleware, aclMiddleware([ROLES.ADMIN])],
   eventController.create
   /*
-    #swagger.tags = ['Events']
-    #swagger.security = [{
-      "bearerAuth": {}
-    }]
-    #swagger.requestBody = {
-      required: true,
-      schema: {
-        $ref: "#/components/schemas/CreateEventRequest"
-      }
+  #swagger.tags = ['Events']
+  #swagger.security = [{
+    "bearerAuth": {}
+  }]
+  #swagger.requestBody = {
+    required: true,
+    schema: {
+      $ref: "#/components/schemas/CreateEventRequest"
     }
+  }
   */
 );
 router.get(
   "/events",
   eventController.findAll
   /*
-    #swagger.tags = ['Events']
-    #swagger.parameters['limit'] = {
-      in: 'query',
-      type: 'number',
-      default: 10
-    }
-    #swagger.parameters['page'] = {
-      in: 'query',
-      type: 'number',
-      default: 1
-    }
-    #swagger.parameters['category'] = {
-      in: 'query',
-      type: 'string'
-    }
-    #swagger.parameters['isOnline'] = {
-      in: 'query',
-      type: 'boolean'
-    }
-    #swagger.parameters['isPublish'] = {
-      in: 'query',
-      type: 'boolean'
-    }
-    #swagger.parameters['isFeatured'] = {
-      in: 'query',
-      type: 'boolean'
-    }
+  #swagger.tags = ['Events']
+  #swagger.parameters['limit'] = {
+    in: 'query',
+    type: 'number',
+    default: 10
+  }
+  #swagger.parameters['page'] = {
+    in: 'query',
+    type: 'number',
+    default: 1
+  }
+  #swagger.parameters['category'] = {
+    in: 'query',
+    type: 'string'
+  }
+  #swagger.parameters['isOnline'] = {
+    in: 'query',
+    type: 'boolean'
+  }
+  #swagger.parameters['isPublish'] = {
+    in: 'query',
+    type: 'boolean'
+  }
+  #swagger.parameters['isFeatured'] = {
+    in: 'query',
+    type: 'boolean'
+  }
   */
 );
 router.get(
   "/events/:id",
   eventController.findOne
   /*
-    #swagger.tags = ['Events']
+  #swagger.tags = ['Events']
   */
 );
 router.put(
@@ -413,16 +446,16 @@ router.put(
   [authMiddleware, aclMiddleware([ROLES.ADMIN])],
   eventController.update
   /*
-    #swagger.tags = ['Events']
-    #swagger.security = [{
-      "bearerAuth": {}
-    }]
-    #swagger.requestBody = {
-      required: true,
-      schema: {
-        $ref: "#/components/schemas/CreateEventRequest"
-      }
+  #swagger.tags = ['Events']
+  #swagger.security = [{
+    "bearerAuth": {}
+  }]
+  #swagger.requestBody = {
+    required: true,
+    schema: {
+      $ref: "#/components/schemas/CreateEventRequest"
     }
+  }
   */
 );
 router.delete(
@@ -430,17 +463,17 @@ router.delete(
   [authMiddleware, aclMiddleware([ROLES.ADMIN])],
   eventController.remove
   /*
-    #swagger.tags = ['Events']
-    #swagger.security = [{
-      "bearerAuth": {}
-    }]
+  #swagger.tags = ['Events']
+  #swagger.security = [{
+    "bearerAuth": {}
+  }]
   */
 );
 router.get(
   "/events/:slug/slug",
   eventController.findOneBySlug
   /*
-    #swagger.tags = ['Events']
+  #swagger.tags = ['Events']
   */
 );
 
@@ -448,42 +481,42 @@ router.get(
   "/regions",
   regionController.getAllProvinces
   /*
-    #swagger.tags = ['Regions']
+  #swagger.tags = ['Regions']
   */
 );
 router.get(
   "/regions/:id/province",
   regionController.getProvince
   /*
-    #swagger.tags = ['Regions']
+  #swagger.tags = ['Regions']
   */
 );
 router.get(
   "/regions/:id/regency",
   regionController.getRegency
   /*
-    #swagger.tags = ['Regions']
+  #swagger.tags = ['Regions']
   */
 );
 router.get(
   "/regions/:id/district",
   regionController.getDistrict
   /*
-    #swagger.tags = ['Regions']
+  #swagger.tags = ['Regions']
   */
 );
 router.get(
   "/regions/:id/village",
   regionController.getVillage
   /*
-    #swagger.tags = ['Regions']
+  #swagger.tags = ['Regions']
   */
 );
 router.get(
   "/regions-search",
   regionController.findByCity
   /*
-    #swagger.tags = ['Regions']
+  #swagger.tags = ['Regions']
   */
 );
 
@@ -491,23 +524,56 @@ router.post(
   "/media/upload-single",
   [
     authMiddleware,
-    aclMiddleware([ROLES.MEMBER, ROLES.ADMIN]),
+    aclMiddleware([ROLES.ADMIN, ROLES.MEMBER]),
     mediaMiddleware.single("file"),
   ],
   mediaController.single
   /*
-    #swagger.tags = ['Media']
-    #swagger.security = [{
-      "bearerAuth": {}
-    }]
-    #swagger.requestBody = {
-      required: true,
-      content: {
-        "multipart/form-data": {
-          schema: {
-            type: "object",
-            properties: {
-              file: {
+  #swagger.tags = ['Media']
+  #swagger.security = [{
+    "bearerAuth": {}
+  }]
+  #swagger.requestBody = {
+    required: true,
+    content: {
+      "multipart/form-data": {
+        schema: {
+          type: "object",
+          properties: {
+            file: {
+              type: "string",
+              format: "binary"
+            }
+          }
+        }
+      }
+    }
+  }
+  */
+);
+router.post(
+  "/media/upload-multiple",
+  [
+    authMiddleware,
+    aclMiddleware([ROLES.ADMIN, ROLES.MEMBER]),
+    mediaMiddleware.multiple("files"),
+  ],
+  mediaController.multiple
+  /*
+  #swagger.tags = ['Media']
+  #swagger.security = [{
+    "bearerAuth": {}
+  }]
+  #swagger.requestBody = {
+    required: true,
+    content: {
+      "multipart/form-data": {
+        schema: {
+          type: "object",
+          properties: {
+            files: {
+              type: "array",
+              items: {
                 type: "string",
                 format: "binary"
               }
@@ -516,71 +582,25 @@ router.post(
         }
       }
     }
-  */
-);
-router.post(
-  "/media/upload-multiple",
-  [
-    authMiddleware,
-    aclMiddleware([ROLES.MEMBER, ROLES.ADMIN]),
-    mediaMiddleware.multiple("files"),
-  ],
-  mediaController.multiple
-  /*
-    #swagger.tags = ['Media']
-    #swagger.security = [{
-      "bearerAuth": {}
-    }]
-    #swagger.requestBody = {
-      required: true,
-      content: {
-        "multipart/form-data": {
-          schema: {
-            type: "object",
-            properties: {
-              files: {
-                type: "array",
-                items: {
-                  type: "string",
-                  format: "binary"
-                }
-              }
-            }
-          }
-        }
-      }
-    }
+  }
   */
 );
 router.delete(
   "/media/remove",
-  [authMiddleware, aclMiddleware([ROLES.MEMBER, ROLES.ADMIN])],
+  [authMiddleware, aclMiddleware([ROLES.ADMIN, ROLES.MEMBER])],
   mediaController.remove
   /*
-    #swagger.tags = ['Media']
-    #swagger.security = [{
-      "bearerAuth": {}
-    }]
-    #swagger.requestBody = {
-      required: true,
-      schema: {
-        $ref: "#/components/schemas/RemoveMediaRequest"
-      }
+  #swagger.tags = ['Media']
+  #swagger.security = [{
+    "bearerAuth": {}
+  }]
+  #swagger.requestBody = {
+    required: true,
+    schema: {
+      $ref: "#/components/schemas/RemoveMediaRequest"
     }
+  }
   */
 );
-
-router.get("/dummy", dummyController.dummy);
-
-// router.get(
-//   "/test-acl",
-//   [authMiddleware, aclMiddleware([ROLES.MEMBER])],
-//   (res: Response) => {
-//     res.status(200).json({
-//       data: "Sucess",
-//       message: "OK",
-//     });
-//   }
-// );
 
 export default router;

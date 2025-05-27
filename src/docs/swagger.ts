@@ -3,21 +3,19 @@ import swaggerAutogen from "swagger-autogen";
 const doc = {
   info: {
     version: "v0.0.1",
-    title: "API Documentation WPU Course",
-    description: "API Documentation WPU Course",
+    title: "Dokumentasi API ACARA",
+    description: "Dokumentasi API ACARA",
   },
-
   servers: [
     {
       url: "http://localhost:3000/api",
-      description: "Local server",
+      description: "Local Server",
     },
     {
-      url: "https://server-wpu-mern.vercel.app/api",
-      description: "Development server",
+      url: "https://back-end-acara.vercel.app/api",
+      description: "Deploy Server",
     },
   ],
-
   components: {
     securitySchemes: {
       bearerAuth: {
@@ -27,18 +25,27 @@ const doc = {
     },
     schemas: {
       LoginRequest: {
-        identifier: "admin",
-        password: "123456",
+        identifier: "agung2025",
+        password: "Agung2025!",
       },
       RegisterRequest: {
-        fullName: "admin",
-        username: "admin",
-        email: "admin@mail.com",
-        password: "123456",
-        confirmPassword: "123456",
+        fullName: "member2025",
+        username: "member2025",
+        email: "member2025@yopmail.com",
+        password: "Member2025!",
+        confirmPassword: "Member2025!",
       },
       ActivationRequest: {
         code: "abcdef",
+      },
+      UpdateProfileRequest: {
+        fullName: "",
+        profilePicture: "",
+      },
+      UpdatePasswordRequest: {
+        oldPassword: "",
+        password: "",
+        confirmPassword: "",
       },
       CreateCategoryRequest: {
         name: "",

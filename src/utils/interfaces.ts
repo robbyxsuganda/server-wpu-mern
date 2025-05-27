@@ -1,23 +1,23 @@
+import { Request } from "express";
 import { Types } from "mongoose";
 import { User } from "../models/user.model";
-import { Request } from "express";
-
-export interface IReqUser extends Request {
-  user?: IUserToken;
-}
 
 export interface IUserToken
   extends Omit<
     User,
     | "password"
-    | "isActivate"
     | "activationCode"
+    | "isActive"
     | "email"
     | "fullName"
     | "profilePicture"
     | "username"
   > {
   id?: Types.ObjectId;
+}
+
+export interface IReqUser extends Request {
+  user?: IUserToken;
 }
 
 export interface IPaginationQuery {
