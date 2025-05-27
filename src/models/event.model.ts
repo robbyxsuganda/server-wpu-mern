@@ -28,9 +28,9 @@ export const eventDTO = Yup.object({
     .required(),
 });
 
-export type TEvent = Yup.InferType<typeof eventDTO>;
+export type TypeEvent = Yup.InferType<typeof eventDTO>;
 
-export interface Event extends Omit<TEvent, "category" | "createdBy"> {
+export interface Event extends Omit<TypeEvent, "category" | "createdBy"> {
   category: ObjectId;
   createdBy: ObjectId;
 }
@@ -46,10 +46,6 @@ const EventSchema = new Schema<Event>(
       required: true,
     },
     endDate: {
-      type: Schema.Types.String,
-      required: true,
-    },
-    description: {
       type: Schema.Types.String,
       required: true,
     },
@@ -72,6 +68,11 @@ const EventSchema = new Schema<Event>(
     },
     isPublish: {
       type: Schema.Types.Boolean,
+      default: false,
+    },
+    description: {
+      type: Schema.Types.String,
+      required: true,
     },
     createdBy: {
       type: Schema.Types.ObjectId,
@@ -95,7 +96,6 @@ const EventSchema = new Schema<Event>(
           type: Schema.Types.String,
         },
       },
-      required: true,
     },
   },
   {
@@ -105,7 +105,7 @@ const EventSchema = new Schema<Event>(
 
 EventSchema.pre("save", function () {
   if (!this.slug) {
-    const slug = this.name.split(" ").join("-").toLocaleLowerCase();
+    const slug = this.name.split(" ").join("-").toLowerCase();
     this.slug = `${slug}`;
   }
 });
