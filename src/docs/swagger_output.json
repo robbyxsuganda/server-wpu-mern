@@ -2,17 +2,17 @@
   "openapi": "3.0.0",
   "info": {
     "version": "v0.0.1",
-    "title": "API Documentation WPU Course",
-    "description": "API Documentation WPU Course"
+    "title": "Dokumentasi API ACARA",
+    "description": "Dokumentasi API ACARA"
   },
   "servers": [
     {
       "url": "http://localhost:3000/api",
-      "description": "Local server"
+      "description": "Local Server"
     },
     {
-      "url": "https://server-wpu-mern.vercel.app/api",
-      "description": "Development server"
+      "url": "https://back-end-acara.vercel.app/api",
+      "description": "Deploy Server"
     }
   ],
   "paths": {
@@ -112,6 +112,72 @@
             "application/xml": {
               "schema": {
                 "$ref": "#/components/schemas/ActivationRequest"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/update-profile": {
+      "put": {
+        "tags": [
+          "Auth"
+        ],
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": {}
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateProfileRequest"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateProfileRequest"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/update-password": {
+      "put": {
+        "tags": [
+          "Auth"
+        ],
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": {}
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdatePasswordRequest"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdatePasswordRequest"
               }
             }
           }
@@ -819,7 +885,22 @@
           {
             "bearerAuth": {}
           }
-        ]
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateCategoryRequest"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateCategoryRequest"
+              }
+            }
+          }
+        }
       },
       "delete": {
         "tags": [
@@ -845,22 +926,7 @@
           {
             "bearerAuth": {}
           }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CreateCategoryRequest"
-              }
-            },
-            "application/xml": {
-              "schema": {
-                "$ref": "#/components/schemas/CreateCategoryRequest"
-              }
-            }
-          }
-        }
+        ]
       }
     },
     "/events": {
@@ -1303,16 +1369,6 @@
           }
         }
       }
-    },
-    "/dummy": {
-      "get": {
-        "description": "",
-        "responses": {
-          "default": {
-            "description": ""
-          }
-        }
-      }
     }
   },
   "components": {
@@ -1328,11 +1384,11 @@
         "properties": {
           "identifier": {
             "type": "string",
-            "example": "admin"
+            "example": "agung2025"
           },
           "password": {
             "type": "string",
-            "example": "123456"
+            "example": "Agung2025!"
           }
         },
         "xml": {
@@ -1344,23 +1400,23 @@
         "properties": {
           "fullName": {
             "type": "string",
-            "example": "admin"
+            "example": "member2025"
           },
           "username": {
             "type": "string",
-            "example": "admin"
+            "example": "member2025"
           },
           "email": {
             "type": "string",
-            "example": "admin@mail.com"
+            "example": "member2025@yopmail.com"
           },
           "password": {
             "type": "string",
-            "example": "123456"
+            "example": "Member2025!"
           },
           "confirmPassword": {
             "type": "string",
-            "example": "123456"
+            "example": "Member2025!"
           }
         },
         "xml": {
@@ -1377,6 +1433,42 @@
         },
         "xml": {
           "name": "ActivationRequest"
+        }
+      },
+      "UpdateProfileRequest": {
+        "type": "object",
+        "properties": {
+          "fullName": {
+            "type": "string",
+            "example": ""
+          },
+          "profilePicture": {
+            "type": "string",
+            "example": ""
+          }
+        },
+        "xml": {
+          "name": "UpdateProfileRequest"
+        }
+      },
+      "UpdatePasswordRequest": {
+        "type": "object",
+        "properties": {
+          "oldPassword": {
+            "type": "string",
+            "example": ""
+          },
+          "password": {
+            "type": "string",
+            "example": ""
+          },
+          "confirmPassword": {
+            "type": "string",
+            "example": ""
+          }
+        },
+        "xml": {
+          "name": "UpdatePasswordRequest"
         }
       },
       "CreateCategoryRequest": {
